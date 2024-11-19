@@ -17,7 +17,9 @@ function convertLongVowelsToRepeating(romaji: string) {
 async function initializeKuroshiro() {
   if (!kuroshiro) {
     kuroshiro = new Kuroshiro();
-    await kuroshiro.init(new KuromojiAnalyzer({ dictPath: '/dict/' }));
+    await kuroshiro.init(
+      new KuromojiAnalyzer({ dictPath: `${process.cwd()}/public/dict` })
+    );
   }
 }
 
