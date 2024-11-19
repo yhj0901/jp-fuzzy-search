@@ -19,7 +19,7 @@ async function initializeKuroshiro() {
     kuroshiro = new Kuroshiro();
     await kuroshiro.init(
       new KuromojiAnalyzer({
-        dictPath: `https://drive.google.com/drive/folders/1i4e9OC7w0MpLAtDKsd6t7Pq0enCPkyVL?usp=sharing`,
+        dictPath: 'https://ios-deploy-test.s3.us-east-1.amazonaws.com/dict/',
       })
     );
   }
