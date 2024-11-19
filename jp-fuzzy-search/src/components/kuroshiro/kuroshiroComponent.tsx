@@ -11,14 +11,11 @@ export default function KuroshiroComponent() {
     try {
       setError(null);
 
-      const response = await fetch(
-        'https://jp-fuzzy-search.vercel.app/api/convert',
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ text: inputText }),
-        }
-      );
+      const response = await fetch('/api/convert', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: inputText }),
+      });
 
       if (!response.ok) {
         throw new Error('Failed to convert text');
