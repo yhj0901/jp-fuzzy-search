@@ -1,10 +1,10 @@
 import Kuroshiro from 'kuroshiro';
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
 
-let kuroshiro;
+let kuroshiro: Kuroshiro | undefined;
 
 // 장음 변환 함수
-function convertLongVowelsToRepeating(romaji) {
+function convertLongVowelsToRepeating(romaji: string) {
   return romaji
     .replace(/ā/g, 'aa')
     .replace(/ī/g, 'ii')
@@ -22,7 +22,7 @@ async function initializeKuroshiro() {
 }
 
 // API 핸들러
-export async function POST(req) {
+export async function POST(req: Request) {
   try {
     // 요청 본문에서 텍스트 추출
     const body = await req.json();
@@ -35,14 +35,18 @@ export async function POST(req) {
       });
     }
 
+    let modifiedRomaji = '';
+
     // Kuroshiro 초기화
     await initializeKuroshiro();
-
-    // 텍스트를 로마자로 변환
-    const romaji = await kuroshiro.convert(text, { to: 'romaji' });
-    const modifiedRomaji = convertLongVowelsToRepeating(romaji);
-    console.log('modifiedRomaji : ', modifiedRomaji);
-
+    if (kuroshiro) {
+      // 텍스트를 로마자로 변환
+      const romaji = await kuroshiro.convert(text, { to: 'romaji' });
+      modifiedRomaji = convertLongVowelsToRepeating(romaji);
+      console.log('modifiedRomaji : ', modifiedRomaji);
+    } else {
+      throw new Error('Kuroshiro is not initialized');
+    }
     // 성공 응답
     return new Response(JSON.stringify({ modifiedRomaji }), {
       status: 200,
