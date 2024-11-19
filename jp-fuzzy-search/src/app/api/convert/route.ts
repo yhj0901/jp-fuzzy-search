@@ -1,5 +1,6 @@
 import Kuroshiro from 'kuroshiro';
 import KuromojiAnalyzer from 'kuroshiro-analyzer-kuromoji';
+import path from 'path';
 
 let kuroshiro: Kuroshiro | undefined;
 
@@ -19,7 +20,7 @@ async function initializeKuroshiro() {
     kuroshiro = new Kuroshiro();
     await kuroshiro.init(
       new KuromojiAnalyzer({
-        dictPath: 'https://ios-deploy-test.s3.us-east-1.amazonaws.com/dict/',
+        dictPath: path.join(process.cwd(), 'public', 'dict'),
       })
     );
   }
