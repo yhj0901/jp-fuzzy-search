@@ -17,6 +17,7 @@ export default function KuroshiroComponent() {
         body: JSON.stringify({ text: inputText }),
       });
 
+      console.log('response : ', response);
       if (!response.ok) {
         throw new Error('Failed to convert text');
       }
