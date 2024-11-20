@@ -1,0 +1,21 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: FunctionsToRomanizeJapanese
+Transform:
+- AWS::Serverless-2016-10-31
+Resources:
+  JapaneseConverterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: JapaneseConverterFunction
+      Handler: index.handler
+      Runtime: nodejs18.x
+      Timeout: 30
+      MemorySize: 512
+      Events:
+        ConvertAPI:
+          Type: Api
+          Properties:
+            Path: /convert
+            Method: post
+    Metadata:
+      SamResourceId: JapaneseConverterFunction
